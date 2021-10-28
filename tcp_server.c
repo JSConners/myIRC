@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include <sys/types.h> 
-#include <sys/sockets.h>
+#include <sys/socket.h>
 
 #include <netinet/in.h>
 
@@ -20,8 +20,8 @@ int main(){
 	//specify the address for the socket
 	struct sockaddr_in server_address; 
 	server_address.sin_family = AF_INET; 
-	server_address.sin_port = hton(9002);
-	server_address.sin_add.s_addr = INADDR_ANY; 
+	server_address.sin_port = htons(9002);
+	server_address.sin_addr.s_addr = INADDR_ANY; 
 
 
 	// bind the socket to the specified IP and port
@@ -33,7 +33,7 @@ int main(){
 	int client_socket; 
 
 	// the 1st null is a struct to get the client IP address, ignoring this because we are using local host
-	client_socket = accept(server_socket, NULL, NULL);
+	client_socket = accept(socket, NULL, NULL);
 
 	//sends the data in the message to the client
 	send(client_socket, server_message, sizeof(server_message), 0);
